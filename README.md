@@ -13,10 +13,6 @@ https://www.hehaozhao.top/front/articlePage/5w9rpayiwq
 2. 导入对应模块
 
 #### 使用说明
-javase-study父模块
-
-
-
 1.   课01.Vuex课程介绍
 2.   课02.Vuex的安装
 3.   课03.写的第一个Vuex的例子
