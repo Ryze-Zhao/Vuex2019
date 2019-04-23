@@ -154,6 +154,18 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 
 /***/ }),
 
+/***/ "./src/components/counter.js":
+/*!***********************************!*\
+  !*** ./src/components/counter.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ \"./node_modules/vuex/dist/vuex.esm.js\");\n\r\nconst Counter = {\r\n    template: `<div>{{count}} {{totalCount}} {{message}} {{messageChange}} {{sayHi}} </div>`,\r\n    data(){\r\n        return{\r\n            localCount:5,\r\n        }\r\n    },\r\n    computed:{\r\n        sayHi(){ return \"Hi!\" },\r\n        ...vuex__WEBPACK_IMPORTED_MODULE_0__[\"default\"].mapState({\r\n            count:\"count\",\r\n            message: \"message\",\r\n            messageChange: \"message\",\r\n            totalCount:function (state) {\r\n                return this.localCount+state.count;\r\n            }\r\n        })\r\n    }\r\n}\r\n// 暴露出去\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Counter);\n\n//# sourceURL=webpack:///./src/components/counter.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -162,7 +174,19 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ \"./node_modules/vuex/dist/vuex.esm.js\");\n\r\n\r\n\r\n// 工程项目下需要在js引入vue，即这句话,不然报错\r\nvue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use(vuex__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\r\n\r\n//这个是Store\r\nconst store = new vuex__WEBPACK_IMPORTED_MODULE_1__[\"default\"].Store({\r\n    state: {\r\n        count: 0,\r\n        message: \"Hello Vuex\",\r\n    },\r\n    mutations: {\r\n        increment(state) {\r\n            state.count++\r\n        }\r\n    }\r\n})\r\nconst Counter = {\r\n    template: `<div>{{count}} {{totalCount}} {{message}} {{messageChange}} {{sayHi}} </div>`,\r\n    data(){\r\n        return{\r\n            localCount:5,\r\n        }\r\n    },\r\n    computed:{\r\n        sayHi(){ return \"Hi!\" },\r\n        ...vuex__WEBPACK_IMPORTED_MODULE_1__[\"default\"].mapState({\r\n            count:\"count\",\r\n            message: \"message\",\r\n            //这种是换个名字\r\n            messageChange: \"message\",\r\n            //为了能够使用 `this` 获取局部状态，必须使用常规函数,省略:function也可以\r\n            totalCount:function (state) {\r\n                return this.localCount+state.count;\r\n            }\r\n        })\r\n    }\r\n}\r\nconst app = new vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]({\r\n    el: '#app',\r\n    // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件\r\n    store,\r\n    components: { Counter },\r\n    template: `\r\n                <div class=\"app\">\r\n                 <counter></counter>\r\n                </div>`\r\n})\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ \"./node_modules/vuex/dist/vuex.esm.js\");\n/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store.js */ \"./src/store.js\");\n/* harmony import */ var _components_counter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/counter.js */ \"./src/components/counter.js\");\n\r\n\r\n\r\n//更改点\r\nvue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use(vuex__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\r\n\r\nconst store=Object(_store_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\r\n\r\nconst app = new vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]({\r\n    el: '#app',\r\n    store,\r\n    components: { Counter: _components_counter_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"] },\r\n    template: `\r\n                <div class=\"app\">\r\n                 <counter></counter>\r\n                </div>`\r\n})\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/store.js":
+/*!**********************!*\
+  !*** ./src/store.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ \"./node_modules/vuex/dist/vuex.esm.js\");\n\r\n\r\n\r\nfunction createStore(){\r\n  return  new vuex__WEBPACK_IMPORTED_MODULE_0__[\"default\"].Store({\r\n        state: {\r\n            count: 0,\r\n            message: \"Hello Vuex\",\r\n        },\r\n        mutations: {\r\n            increment(state) {\r\n                state.count++\r\n            }\r\n        }\r\n    })\r\n}\r\n// 暴露出去\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (createStore);\n\n//# sourceURL=webpack:///./src/store.js?");
 
 /***/ })
 

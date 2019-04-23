@@ -13,5 +13,10 @@ module.exports = {
         new HtmlWebpackPlugin({
             template:'./src/index.html',
         })
-    ]
+    ],
+	devServer:{
+        open:true,//自动打开站点首页
+        port:9000,//把默认端口号8080修改成9000
+		inline:true
+	}
 }
