@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>Lesson06.Vuex五大核心Getter</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        //这个是Store
+        const store = new Vuex.Store({
+            state: {
+                todos: [
+                    { id: 1, name: "读书1小时", done: false },
+                    { id: 2, name: "学习1小时", done: true },
+                    { id: 3, name: "游戏1小时", done: true },
+                    { id: 4, name: "摸鱼1小时", done: true },
+                    { id: 5, name: "跑步1小时", done: false },
+                ]
+            },
+            mutations: {}
+        })
+        const Counter = {
+            template: `<div>
+                    今日已完成{{ doneTodosCount }}件事
+                    <ul>
+                        <li v-for="todo in doneTodos" :key="todo.id">{{todo.name}}</li>
+                    </ul>
+                </div>`,
+            computed: {
+                doneTodos() {
+                    return this.$store.state.todos.filter(todo=>todo.done);
+                },
+                doneTodosCount() {
+                    return this.$store.state.todos.filter(todo=>todo.done).length;
+                },
+            }
+        }
+        const app = new Vue({
+            el: '#app',
+            // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
+            store,
+            components: { Counter },
+            template: `
+                <div class="app">
+                 <counter></counter>
+                </div>`
+        })
+    </script>
+</body>
+</html>
