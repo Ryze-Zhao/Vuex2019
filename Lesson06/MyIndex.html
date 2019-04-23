@@ -18,6 +18,14 @@
                     { id: 5, name: "跑步1小时", done: false },
                 ]
             },
+            getters:{
+                doneTodos(state) {
+                    return state.todos.filter(todo=>todo.done);
+                },
+                doneTodosCount(state) {
+                    return state.todos.filter(todo=>todo.done).length;
+                },
+            },
             mutations: {}
         })
         const Counter = {
@@ -29,10 +37,10 @@
                 </div>`,
             computed: {
                 doneTodos() {
-                    return this.$store.state.todos.filter(todo=>todo.done);
+                    return store.getters.doneTodos;
                 },
                 doneTodosCount() {
-                    return this.$store.state.todos.filter(todo=>todo.done).length;
+                    return store.getters.doneTodosCount;
                 },
             }
         }
