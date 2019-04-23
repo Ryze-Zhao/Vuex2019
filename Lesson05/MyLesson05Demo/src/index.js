@@ -1,3 +1,9 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+// 工程项目下需要在js引入vue，即这句话,不然报错
+Vue.use(Vuex);
+
 //这个是Store
 const store = new Vuex.Store({
     state: {
