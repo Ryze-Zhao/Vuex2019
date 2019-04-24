@@ -20,19 +20,29 @@
                     { id: 5, name: "跑步1小时", done: false },
                 ]
             },
-            getters:{
+            getters: {
                 doneTodos(state) {
                     return state.todos.filter(todo => todo.done);
                 },
                 //Getter 也可以接受其他 getter 作为第二个参数：
                 doneTodosCount: (state, getters) => {
                     return getters.doneTodos.length
+                },
+                //下面两个是等价的
+                doneTodosById: (state) => (id) => {
+                    return state.todos.find(todo => todo.id === id);
+                },
+                doneTodosById1: function (state) {
+                    return function (id) {
+                        return state.todos.find(todo => todo.id === id);
+                    }
                 }
             },
             mutations: {}
         })
         const Counter = {
             template: `<div>
+                <div>根据方法获取：{{curDoneTodos.name}}-----根据方法获取1：{{curDoneTodos1.name}}</div>
                     今日已完成{{ doneTodosCount }}件事
                     <ul>
                         <li v-for="todo in doneTodos" :key="todo.id">{{todo.name}}</li>
@@ -40,11 +50,19 @@
                 </div>`,
             computed: {
                 doneTodos() {
-                    return store.getters.doneTodos;
+                    return this.$store.getters.doneTodos;
                 },
                 doneTodosCount() {
-                    return store.getters.doneTodosCount;
+                    return this.$store.getters.doneTodosCount;
                 },
+                  //下面两个是等价的
+                curDoneTodos(){
+                    return this.$store.getters.doneTodosById(2);
+                },
+                curDoneTodos1(){
+                    return this.$store.getters.doneTodosById1(2);
+                }
+
             }
         }
         const app = new Vue({
