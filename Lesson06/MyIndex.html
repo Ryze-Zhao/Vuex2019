@@ -1,9 +1,11 @@
 <html>
+
 <head>
     <title>Lesson06.Vuex五大核心Getter</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
 </head>
+
 <body>
     <div id="app"></div>
     <script>
@@ -20,11 +22,12 @@
             },
             getters:{
                 doneTodos(state) {
-                    return state.todos.filter(todo=>todo.done);
+                    return state.todos.filter(todo => todo.done);
                 },
-                doneTodosCount(state) {
-                    return state.todos.filter(todo=>todo.done).length;
-                },
+                //Getter 也可以接受其他 getter 作为第二个参数：
+                doneTodosCount: (state, getters) => {
+                    return getters.doneTodos.length
+                }
             },
             mutations: {}
         })
@@ -56,4 +59,5 @@
         })
     </script>
 </body>
+
 </html>
