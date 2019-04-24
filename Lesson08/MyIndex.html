@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>课08.Vuex的Action</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -8,6 +9,7 @@
 <body>
     <div id="app"></div>
     <script>
+        const Counter = {emplate: `<div>{{ $store.state.count }}</div>` }
         const store = new Vuex.Store({
             state: {count: 0},
             mutations: {
@@ -18,9 +20,24 @@
             actions: {
                 increment(context) {
                     context.commit('increment')
+                },
+                incrementAsync({commit}) {
+                    setTimeout(() => {
+                        commit('increment')
+                    }, 1000)
                 }
             }
         })
+        const app = new Vue({
+            el: '#app',
+            store,
+            computed: Vuex.mapState(['count']),
+            components: {
+                'counter': Counter,
+            },
+            template: ` <div><counter></counter></div>`
+        })
     </script>
 </body>
+
 </html>
