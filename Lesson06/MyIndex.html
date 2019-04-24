@@ -48,22 +48,33 @@
                         <li v-for="todo in doneTodos" :key="todo.id">{{todo.name}}</li>
                     </ul>
                 </div>`,
+            // computed: {
+            //     doneTodos() {
+            //         return this.$store.getters.doneTodos;
+            //     },
+            //     doneTodosCount() {
+            //         return this.$store.getters.doneTodosCount;
+            //     },
+            //       //下面两个是等价的
+            //     curDoneTodos(){
+            //         return this.$store.getters.doneTodosById(2);
+            //     },
+            //     curDoneTodos1(){
+            //         return this.$store.getters.doneTodosById1(2);
+            //     }
+            // }
             computed: {
-                doneTodos() {
-                    return this.$store.getters.doneTodos;
+                //只能处理这两项，因为doneTodosById与doneTodosById1不支持
+                ...Vuex.mapGetters(['doneTodos', "doneTodosCount"]),
+                curDoneTodos() {
+                    return this.$store.getters.doneTodosById(2)
                 },
-                doneTodosCount() {
-                    return this.$store.getters.doneTodosCount;
-                },
-                  //下面两个是等价的
-                curDoneTodos(){
-                    return this.$store.getters.doneTodosById(2);
-                },
-                curDoneTodos1(){
-                    return this.$store.getters.doneTodosById1(2);
+                curDoneTodos1() {
+                    return this.$store.getters.doneTodosById1(2)
                 }
-
             }
+
+
         }
         const app = new Vue({
             el: '#app',
