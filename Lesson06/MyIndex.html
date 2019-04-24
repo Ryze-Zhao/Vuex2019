@@ -43,9 +43,9 @@
         const Counter = {
             template: `<div>
                 <div>根据方法获取：{{curDoneTodos.name}}-----根据方法获取1：{{curDoneTodos1.name}}</div>
-                    今日已完成{{ doneTodosCount }}件事
+                    今日已完成{{ doneTodosCountChange }}件事
                     <ul>
-                        <li v-for="todo in doneTodos" :key="todo.id">{{todo.name}}</li>
+                        <li v-for="todo in doneTodosChange" :key="todo.id">{{todo.name}}</li>
                     </ul>
                 </div>`,
             // computed: {
@@ -64,8 +64,10 @@
             //     }
             // }
             computed: {
-                //只能处理这两项，因为doneTodosById与doneTodosById1不支持
-                ...Vuex.mapGetters(['doneTodos', "doneTodosCount"]),
+                ...Vuex.mapGetters({
+                    doneTodosChange: "doneTodos",
+                    doneTodosCountChange: "doneTodosCount",
+                }),
                 curDoneTodos() {
                     return this.$store.getters.doneTodosById(2)
                 },
