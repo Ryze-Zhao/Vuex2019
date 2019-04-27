@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Lessson08.Vuex五大核心Action</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -8,8 +9,24 @@
 <body>
     <div id="app"></div>
     <script>
+        //第三步新建component
+        const Counter = {
+            //第四步映射store中的actions等
+            methods: Vuex.mapActions({
+               add:"increment",
+               addEverySecond:"incrementAsync"
+               }),
+               //第五步调用这个component中的方法（我这里是已经使用别名）
+            template: `
+                    <div>
+                        {{ $store.state.count }}
+                        <button @click="add">Add</button>
+                        <button @click="addEverySecond">AddEverySecond</button>
+                    </div>
+                `
+        }
         const store = new Vuex.Store({
-            state: {count: 0},
+            state: { count: 0 },
             mutations: {
                 increment(state) {
                     state.count++
@@ -19,8 +36,7 @@
                 increment(context) {
                     context.commit('increment')
                 },
-                incrementAsync({commit}) {
-                    //将setTimeout改为setInterval
+                incrementAsync({ commit }) {
                     setInterval(() => {
                         commit('increment')
                     }, 1000)
@@ -31,8 +47,18 @@
             el: '#app',
             store,
             computed: Vuex.mapState(['count']),
-            template: ` <div>{{count}}</div>`
+            //第一步引入component
+            components: {
+                'counter': Counter,
+            },
+            //第二步设置模板使用component
+            template: `
+                    <div>
+                        <counter></counter>
+                    </div>
+                `
         })
     </script>
 </body>
+
 </html>
