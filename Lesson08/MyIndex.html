@@ -9,19 +9,20 @@
 <body>
     <div id="app"></div>
     <script>
-        //第三步新建component
         const Counter = {
-            //第四步映射store中的actions等
             methods: Vuex.mapActions({
-               add:"increment",
-               addEverySecond:"incrementAsync"
-               }),
-               //第五步调用这个component中的方法（我这里是已经使用别名）
+                add: "increment",
+                addEverySecond: "incrementAsync",
+                //第二步
+                addAsync:"manyActions"
+            }),
+               // 第三步调用  <button @click="addAsync">addAsync</button>
             template: `
                     <div>
                         {{ $store.state.count }}
                         <button @click="add">Add</button>
                         <button @click="addEverySecond">AddEverySecond</button>
+                        <button @click="addAsync">addAsync</button>
                     </div>
                 `
         }
@@ -37,9 +38,23 @@
                     context.commit('increment')
                 },
                 incrementAsync({ commit }) {
-                    setInterval(() => {
-                        commit('increment')
-                    }, 1000)
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            commit('increment')
+                            resolve()
+                        }, 3000)
+                    })
+                },
+                //第一步增加这个actions
+                async manyActions({dispatch, commit }) {
+                    console.log("run in test 01");
+                    await dispatch('incrementAsync');
+                    console.log("run in test 02");
+
+                    await dispatch('incrementAsync');
+                    console.log("run in test 03");
+                    dispatch('increment');
+                    console.log("run in test 04");
                 }
             }
         })
@@ -47,11 +62,9 @@
             el: '#app',
             store,
             computed: Vuex.mapState(['count']),
-            //第一步引入component
             components: {
                 'counter': Counter,
             },
-            //第二步设置模板使用component
             template: `
                     <div>
                         <counter></counter>
