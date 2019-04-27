@@ -1,7 +1,6 @@
 <html>
-
 <head>
-    <title>课08.Vuex的Action</title>
+    <title>Lessson08.Vuex五大核心Action</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
 </head>
@@ -9,7 +8,6 @@
 <body>
     <div id="app"></div>
     <script>
-        const Counter = {emplate: `<div>{{ $store.state.count }}</div>` }
         const store = new Vuex.Store({
             state: {count: 0},
             mutations: {
@@ -22,7 +20,8 @@
                     context.commit('increment')
                 },
                 incrementAsync({commit}) {
-                    setTimeout(() => {
+                    //将setTimeout改为setInterval
+                    setInterval(() => {
                         commit('increment')
                     }, 1000)
                 }
@@ -32,12 +31,8 @@
             el: '#app',
             store,
             computed: Vuex.mapState(['count']),
-            components: {
-                'counter': Counter,
-            },
-            template: ` <div><counter></counter></div>`
+            template: ` <div>{{count}}</div>`
         })
     </script>
 </body>
-
 </html>
