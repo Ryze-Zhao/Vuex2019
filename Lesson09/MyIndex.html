@@ -7,11 +7,39 @@
     </head>
     <body>
         <script>
-            
+            const shopcartModule = {
+               state:{
+                count: 0,
+                shopcart:[
+                    {id:1,name:"课09.Vuex的Module",count:1},
+                    {id:1,name:"课08.Vuex的Action",count:1},
+                ],
+               }
+            }
+            const homeModule ={
+                state:{
+                    cities:[
+                        "上海",
+                        "北京",
+                    ],
+                    home:{ },
+                }
+            }
+            const userModule = {
+               state:{
+                    orders:[],
+                    user:{
+                        name:"Lesson09",
+                        gender:'male',
+                    },
+                    products:[],
+               }
+            }
            const store = new Vuex.Store({
-                strict: true,
-                state: {
-                    count: 0
+               modules:{
+                   shopcart:shopcartModule,
+                   home:homeModule,
+                   user:userModule,
                 },
                 mutations: {
                     increment (state) {
@@ -19,10 +47,6 @@
                     }
                 }
             })
-           console.log("Before Commit："+store.state.count);
-           store.commit("increment");
-           console.log("After Commit："+store.state.count)
-
         </script>
     </body>
 </html>
