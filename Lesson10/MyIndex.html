@@ -13,6 +13,7 @@
     </div>
     <script>
         const moduleA = {
+            namespaced:true,
             state: {
                 count: 0,
             },
@@ -63,14 +64,14 @@
                     return state.count + state.a.count
                 },
                 doubleNum: function (state) {
-                    return this.$store.getters.doubleCount;
+                    return this.$store.getters["a/doubleCount"];
                 }
             }),
             //当increment（+1）按钮被点击，令moduleA的count+1,那么这里的computed中的num和doublenum也会分别改变
             //每次点击，num表现为+1，doubleNum变现为翻倍（第一次是因为moduleA的count已经+1，然后再*2，所以从0变为2）
             methods: {
                 increment() {
-                    this.$store.commit("increment");
+                    this.$store.commit("a/increment");
                 }
             },
             template: `
