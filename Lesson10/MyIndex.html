@@ -7,44 +7,44 @@
     </head>
     <body>
         <script>
-            const shopcartModule = {
+             const moduleA = {
                state:{
-                count: 0,
-                shopcart:[
-                    {id:1,name:"课09.Vuex的Module",count:1},
-                    {id:1,name:"课08.Vuex的Action",count:1},
-                ],
-               }
-            }
-            const homeModule ={
-                state:{
-                    cities:[
-                        "上海",
-                        "北京",
-                    ],
-                    home:{ },
-                }
-            }
-            const userModule = {
-               state:{
-                    orders:[],
-                    user:{
-                        name:"Lesson09",
-                        gender:'male',
-                    },
-                    products:[],
+                  count: 0,
+               },
+                  //对于模块内部的 mutation 和 getter，接收的第一个参数是模块的局部状态对象，因此这里改变的是count: 0
+               mutations:{
+                   increment(state){
+                       state.count++;
+                   }
+               },
+               //对于模块内部的 getter，根节点状态会作为第三个参数暴露出来
+               getters:{
+                   doubleCount(state){
+                       return state.count*2
+                   },
+                   sumWithRootCount(state,getters,rootState){
+                       return state.count+rootState.count
+                   }
+               },
+               actions:{
+                   //对于模块内部的 action，局部状态通过 context.state 暴露出来，根节点状态则为 context.rootState
+                   //按照现在代码state代表moduleA，rootState代表下面的store,那么state.count就属于局部状态了
+                   incrementIfOddOnRooSum({ state,rootState,commit}){
+                        console.log("进入前两数值"+state.count+"-"+rootState.count);
+                       //这里是moduleA的count+store的count的和是奇数，那么moduleA.count会+1；
+                       if( (state.count + rootState.count)%2 ===1 ){
+                            commit("increment");
+                       }
+                       console.log("进入前两数值"+state.count+"-"+rootState.count);
+                   }
                }
             }
            const store = new Vuex.Store({
-               modules:{
-                   shopcart:shopcartModule,
-                   home:homeModule,
-                   user:userModule,
-                },
-                mutations: {
-                    increment (state) {
-                    state.count++
-                    }
+               state:{
+                    count:1,
+               },
+                modules:{
+                    a:moduleA,
                 }
             })
         </script>
