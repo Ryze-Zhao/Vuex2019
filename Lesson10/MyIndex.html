@@ -8,6 +8,9 @@
 </head>
 
 <body>
+    <div id="app">
+
+    </div>
     <script>
         const moduleA = {
             state: {
@@ -22,7 +25,7 @@
             //对于模块内部的 getter，根节点状态会作为第三个参数暴露出来
             getters: {
                 doubleCount(state) {
-                    return state.count*2;
+                    return state.count * 2;
                 },
                 sumWithRootCount(state, getters, rootState) {
                     return state.count + rootState.count;
@@ -49,6 +52,34 @@
             modules: {
                 a: moduleA,
             }
+        })
+
+        const app = new Vue({
+            el: "#app",
+            //引用store
+            store,
+            computed: Vuex.mapState({
+                num: function (state) {
+                    return state.count + state.a.count
+                },
+                doubleNum: function (state) {
+                    return this.$store.getters.doubleCount;
+                }
+            }),
+            //当increment（+1）按钮被点击，令moduleA的count+1,那么这里的computed中的num和doublenum也会分别改变
+            //每次点击，num表现为+1，doubleNum变现为翻倍（第一次是因为moduleA的count已经+1，然后再*2，所以从0变为2）
+            methods: {
+                increment() {
+                    this.$store.commit("increment");
+                }
+            },
+            template: `
+                    <div>
+                        count:{{ num }}
+                        <div>double:{{ doubleNum }}</div>
+                        <button @click="increment">increment</button>
+                    </div>
+                `
         })
     </script>
 </body>
