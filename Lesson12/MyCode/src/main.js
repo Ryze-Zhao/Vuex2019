@@ -1,21 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-//1、引入index.js
-import createStore from './store';
+import store from './store';
+//1、引入App.vue
+import App from './components/App.vue';
 
-//2、使用vuex需要
-Vue.use(Vuex)
-
-//3、引入index.js的方法
-const store = createStore();
-
-//4、使用store
+//2、使用App.vue
 const app = new Vue({
     el:'#app',
     store,
-    template:`
-        <div>
-            Hello Vue {{ $store.state.count }}
-        </div>
-    `
+    render:h=>h(App),
 })
