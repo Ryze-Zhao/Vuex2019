@@ -1,0 +1,9 @@
+<template>
+    <div>
+        Hallo
+    </div>
+</template>
+<script>
+</script>
+<style>
+</style>
