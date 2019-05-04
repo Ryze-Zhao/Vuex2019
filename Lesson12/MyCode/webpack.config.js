@@ -1,22 +1,40 @@
-//1、引入插件
-const HtmlWebpackPlugin = require("html-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+//1、引入
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
-//2、编写
 module.exports = {
-    //3、设置为开发模式
     mode:'development',
-    //4、入口文件
     entry:'./src/main.js',
-    //5、解决使用vue时，打包后会报You are using the runtime-only build of Vue where the template compiler is not available.
     resolve:{
         alias:{
             vue:'vue/dist/vue.esm.js',
         }
     },
-    //6、使用插件，设置生成的，模板文件
+    //2、添加Loader
+    module:{
+        rules:[
+            {
+                test:/\.vue$/,
+                loader: 'vue-loader',
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader'
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
+    },
     plugins:[
         new HtmlWebpackPlugin({
             template:'./src/index.html',
-        })
+        }),
+        //3、引入VueLoader插件
+        new VueLoaderPlugin()
     ]
 }
