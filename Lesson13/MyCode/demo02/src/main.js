@@ -8,6 +8,8 @@ Vue.use(Vuex)
 
 //3、引入index.js的方法
 const store = createStore();
+//这里加入，因为打包后名字会改变，这样可以保证可以继续使用store
+window.store=store;
 
 //4、使用store
 const app = new Vue({
