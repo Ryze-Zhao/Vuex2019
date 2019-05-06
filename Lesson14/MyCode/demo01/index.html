@@ -1,24 +1,14 @@
 <html>
 <head>
-    <title>Lesson13.Vuexd的插件</title>
+    <title>Lesson14.Vuex的严格模式</title>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
 </head>
 <body>
 <script>
-    //1、新建一个插件
-    const myPlugin = store =>{
-        //2、回调的函数
-        console.log("myPlugin installed");
-        store.subscribe((mutations,state)=>{
-            //3、输出store的mutations
-            console.log("myPlugin:[",mutations,"]");
-    })
-    }
-    //4、新建store，设置好mutations
     const store = new Vuex.Store({
-        strict: true,
+        strict: false,
         state: {
             count: 0
         },
@@ -26,9 +16,7 @@
             increment (state) {
                 state.count++
             }
-        },
-        //5、引入插件
-        plugins:[myPlugin]
+        }
     })
 </script>
 </body>
