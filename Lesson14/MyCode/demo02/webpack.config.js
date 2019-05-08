@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 //2、编写
 module.exports = {
     //3、设置为开发模式
-    mode:process.env.NODE_ENV,
+    mode:'production',
     //4、入口文件
     entry:'./src/main.js',
     //5、解决使用vue时，打包后会报You are using the runtime-only build of Vue where the template compiler is not available.
