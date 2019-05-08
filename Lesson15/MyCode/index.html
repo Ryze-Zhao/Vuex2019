@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Lesson15.Vuex的表单处理</title>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
@@ -7,30 +8,52 @@
 </head>
 
 <body>
-<div id="app"></div>
-<script>
-    const store = new Vuex.Store({
-        strict: true,
-        state: {count: 0},
-        mutations: {
-            increment(state) {
-                state.count++
+    <div id="app"></div>
+    <script>
+        const store = new Vuex.Store({
+            strict: true,
+            state: { count: 0 },
+            mutations: {
+                increment(state) {
+                    state.count++
+                },
+                //3、新建一个mutations，用于处理value
+                updateCount(state, value) {
+                    if (value && value != "") {
+                        state.count = parseFloat(value)
+                    }
+
+                }
             }
-        }
-    })
-    const app = new Vue({
-        el: '#app',
-        store,
-        template: `
+        })
+        const app = new Vue({
+            el: '#app',
+            store,
+            //2、调用这个updateMessage的方法，获取<input>中的value，并调用上边的mutations中的updateCount
+            methods: {
+                updateMessage(e) {
+                    const value = e.target.value
+                    console.log(value)
+                    this.$store.commit("updateCount", value)
+                }
+            },
+            <!--1、新建15.4:value+@input，value直接获取，updateMessage是使用methods的方法。-->
+            template: `
                     <div>
                         <h1>{{  $store.state.count }}</h1>
                         <div>
                             <span>v-model</span>
                             <input v-model="$store.state.count">
                         </div>
+
+                        <div>
+                            <span>15.4:value+@input</span>
+                            <input :value="$store.state.count" @input="updateMessage">
+                        </div>
                      </div>
                 `
-    })
-</script>
+        })
+    </script>
 </body>
+
 </html>
