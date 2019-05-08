@@ -17,7 +17,6 @@
                 increment(state) {
                     state.count++
                 },
-                //3、新建一个mutations，用于处理value
                 updateCount(state, value) {
                     if (value && value != "") {
                         state.count = parseFloat(value)
@@ -29,7 +28,17 @@
         const app = new Vue({
             el: '#app',
             store,
-            //2、调用这个updateMessage的方法，获取<input>中的value，并调用上边的mutations中的updateCount
+            //2、使用computed写好get和set即可
+            computed:{
+                    count:{
+                        get(){
+                            return this.$store.state.count;   
+                        },
+                        set(value){
+                            this.$store.commit("updateCount",value)
+                        }
+                    }
+                },
             methods: {
                 updateMessage(e) {
                     const value = e.target.value
@@ -37,18 +46,23 @@
                     this.$store.commit("updateCount", value)
                 }
             },
-            <!--1、新建15.4:value+@input，value直接获取，updateMessage是使用methods的方法。-->
+        //1、 加入15.6这个即可
             template: `
                     <div>
                         <h1>{{  $store.state.count }}</h1>
                         <div>
-                            <span>v-model</span>
+                            <span>15.2  v-model</span>
                             <input v-model="$store.state.count">
                         </div>
 
                         <div>
                             <span>15.4:value+@input</span>
                             <input :value="$store.state.count" @input="updateMessage">
+                        </div>
+
+                        <div>
+                            <span>15.6  v-model Vuex</span>
+                            <input v-model="count">
                         </div>
                      </div>
                 `
